@@ -16,6 +16,8 @@ sudo env ZYPP_PCK_PRELOAD=1 zypper dup -l
 
 highlight "Updating flatpaks..."
 flatpak update
+
+highlight "Removing stale flatpak data..."
 flatpak uninstall --unused
 flatpak uninstall --delete-data
 
@@ -24,6 +26,7 @@ pkcon update
 
 highlight "Updating pipx packages..."
 pipx upgrade-all
+
 #highlight "Updating anti-virus definitions"
 #sudo freshclam
 
