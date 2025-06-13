@@ -14,15 +14,15 @@ highlight "Performing distribution upgrade..."
 sudo env ZYPP_CURL2=1 zypper ref
 sudo env ZYPP_PCK_PRELOAD=1 zypper dup -l
 
+highlight "Updating via PackageKit..."
+pkcon update
+
 highlight "Updating flatpaks..."
 flatpak update
 
 highlight "Removing stale flatpak data..."
 flatpak uninstall --unused
 flatpak uninstall --delete-data
-
-highlight "Updating PackageKit packages..."
-pkcon update
 
 highlight "Updating pipx packages..."
 pipx upgrade-all
