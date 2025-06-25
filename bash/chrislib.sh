@@ -3,6 +3,12 @@
 
 previous_directory=$(pwd)
 
+# Check if executable is in system path or not.
+function is_installed() {
+    local executable="$1"
+    command -v "$executable" >/dev/null 2>&1 && return 0 || return 1
+}
+
 # Securely remove a directory.
 function secure_dir_rm() {
     local directory="$1"
