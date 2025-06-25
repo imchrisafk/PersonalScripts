@@ -1,11 +1,9 @@
 #!/usr/bin/env bash
-# This is a library of useful functions for use in other scripts.
+# A library of useful functions.
 
-## BEGIN Global Vars ##
 previous_directory=$(pwd)
-## END Global Vars ##
 
-## BEGIN Function Definitions ##
+# Securely remove a directory.
 function secure_dir_rm() {
     srm -srv "${1}"
 }
@@ -16,15 +14,17 @@ function highlight() {
     printf "\033[7m%s\033[0m\n" "$text"
 }
 
+# Store current directory.
 function store_cd() {
     previous_directory=$(pwd)
 }
 
+# Change current directory to stored directory.
 function recover_cd() {
     cd $previous_directory
 }
 
+# Send a system notification.
 function notification() {
     notify-send -a "${1}" "${2}"
 }
-## END Function Definitions ##
