@@ -6,6 +6,7 @@
 # - System packages not covered by zypper (packagekit)
 # - Flatpaks
 # - pipx packages
+# - Rust toolchains
 # - ClamAV virus definitions
 # - Tealdeer entries
 
@@ -38,6 +39,11 @@ fi
 if is_installed pipx; then
     highlight "Updating pipx packages..."
     pipx upgrade-all
+fi
+
+if is_installed rustup; then
+    highlight "Updating all installed Rust toolchains..."
+    rustup update
 fi
 
 if is_installed freshclam; then
