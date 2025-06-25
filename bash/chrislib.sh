@@ -10,8 +10,10 @@ function secure_dir_rm() {
     srm -srv "${1}"
 }
 
+# Apply inverse video effect to the given text.
 function highlight() {
-    echo -e '\e[0;30;47m'"${1}"'\e[m'
+    local text="$1"
+    printf "\033[7m%s\033[0m\n" "$text"
 }
 
 function store_cd() {
