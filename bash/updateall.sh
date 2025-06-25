@@ -28,8 +28,10 @@ if is_installed flatpak; then
     highlight "Updating flatpaks..."
     flatpak update
 
-    highlight "Removing stale flatpak data..."
+    highlight "Removing orphaned flatpaks..."
     flatpak uninstall --unused
+
+    highlight "Removing orphaned flatpak data..."
     flatpak uninstall --delete-data
 fi
 
