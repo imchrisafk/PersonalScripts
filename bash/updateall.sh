@@ -2,8 +2,8 @@
 
 # This script is intended to perform a complete update of all updatable things.
 # Currently updating:
-# - System packages (zypper)
-# - System packages not covered by zypper (packagekit)
+# - System packages (zypper, pacman)
+# - packagekit
 # - Flatpaks
 # - pipx packages
 # - Rust toolchains
