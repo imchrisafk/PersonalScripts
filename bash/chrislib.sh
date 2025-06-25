@@ -5,7 +5,8 @@ previous_directory=$(pwd)
 
 # Securely remove a directory.
 function secure_dir_rm() {
-    srm -srv "${1}"
+    local directory="$1"
+    srm -srv "$directory"
 }
 
 # Apply inverse video effect to the given text.
@@ -26,5 +27,7 @@ function recover_cd() {
 
 # Send a system notification.
 function notification() {
-    notify-send -a "${1}" "${2}"
+    local title="$1"
+    local text="$2"
+    notify-send -a "$title" "$text"
 }
