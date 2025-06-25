@@ -6,29 +6,42 @@
 # - System packages not covered by zypper (packagekit)
 # - Flatpaks
 # - pipx packages
+# - ClamAV virus definitions
 # - Tealdeer entries
 
 source chrislib.sh
 
-highlight "Performing distribution upgrade..."
-sudo env ZYPP_CURL2=1 zypper ref
-sudo env ZYPP_PCK_PRELOAD=1 zypper dup -l
+if is_installed zypper; then
+    highlight "Performing distribution upgrade..."
+    sudo env ZYPP_CURL2=1 zypper ref
+    sudo env ZYPP_PCK_PRELOAD=1 zypper dup -l
+fi
 
-highlight "Updating via PackageKit..."
-pkcon update
+if is_installed pkcon; then
+    highlight "Updating via PackageKit..."
+    pkcon update
+fi
 
-highlight "Updating flatpaks..."
-flatpak update
+if is_installed flatpak; then
+    highlight "Updating flatpaks..."
+    flatpak update
 
-highlight "Removing stale flatpak data..."
-flatpak uninstall --unused
-flatpak uninstall --delete-data
+    highlight "Removing stale flatpak data..."
+    flatpak uninstall --unused
+    flatpak uninstall --delete-data
+fi
 
-highlight "Updating pipx packages..."
-pipx upgrade-all
+if is_installed pipx; then
+    highlight "Updating pipx packages..."
+    pipx upgrade-all
+fi
 
-#highlight "Updating anti-virus definitions"
-#sudo freshclam
+if is_installed freshclam; then
+    highlight "Updating anti-virus definitions"
+    sudo freshclam
+fi
 
-highlight "Updating tealdeer entry cache..."
-tldr --update
+if is_installed tldr; then
+    highlight "Updating tealdeer entry cache..."
+    tldr --update
+fi
