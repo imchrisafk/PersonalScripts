@@ -11,8 +11,10 @@
 
 source chrislib.sh
 
-if is_installed zypper; then
-    highlight "Performing distribution upgrade..."
+highlight "Attempting distribution upgrade..."
+if is_installed pacman; then
+    sudo pacman -Syyuu
+elif is_installed zypper; then
     sudo env ZYPP_CURL2=1 zypper ref
     sudo env ZYPP_PCK_PRELOAD=1 zypper dup -l
 fi
