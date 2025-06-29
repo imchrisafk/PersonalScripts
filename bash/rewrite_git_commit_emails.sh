@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # This script updates the author and committer email and name for all commits
 # in a Git repository that match one or more specified old email addresses.
@@ -57,12 +57,12 @@ for OLD_EMAIL in "$@"; do
     fi
 
 done
-     
+
 # Clean up
 echo "Cleaning up..."
 rm -rf .git/refs/original/
 git reflog expire --expire=now --all
 git gc --prune=now
-     
+
 echo "Done! Commits updated to use name '$NEW_NAME' and email '$NEW_EMAIL'."
 echo "Backup is at $BACKUP_DIR. Notify collaborators about the history rewrite."
