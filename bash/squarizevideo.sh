@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Usage: ./squarizevideo.sh <input_file> <output_file>
+# Usage: ./squarizevideo.sh <input_file>
 
 # Takes in a vertical video and converts it to a 1:1 aspect ratio video.
 # A zoomed and blurred copy of the original video stream is layered in the background
@@ -8,6 +8,6 @@
 
 # Configuration
 INPUT_FILE="$1"
-OUTPUT_FILE="$2"
+OUTPUT_FILE="$(dirname "$INPUT_FILE")/$(basename "$INPUT_FILE" | cut -f 1 -d '.').squarized.mp4"
 
 ffmpeg -i "$INPUT_FILE" -filter_complex "[0:v]split=2[blur][vid];[blur]tblend,fps=60,boxblur=8,scale=in_h:-1,crop=in_w:in_w:0:in_h/3[bg];[vid]tblend,fps=60[ov];[bg][ov]overlay=(W-w)/2,fps=60" -c:v libx264 -c:a aac -b:v 10M -b:a 320k "$OUTPUT_FILE"
