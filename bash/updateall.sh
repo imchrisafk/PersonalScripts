@@ -19,8 +19,8 @@ highlight "Updating system packages..."
 if is_installed pacman; then
     sudo pacman -Syyuu # Synchronize and upgrade Arch-based system packages
 elif is_installed zypper; then
-    sudo env ZYPP_CURL2=1 zypper ref          # Refresh openSUSE repositories
-    sudo env ZYPP_PCK_PRELOAD=1 zypper dup -l # Perform distribution upgrade
+    sudo env ZYPP_CURL2=1 zypper ref           # Refresh openSUSE repositories
+    sudo env ZYPP_PCK_PRELOAD=1 zypper dup -ly # Perform distribution upgrade
 fi
 
 # Update PackageKit packages if available
