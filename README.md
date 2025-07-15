@@ -12,7 +12,7 @@ This repository contains a collection of scripts I have created for personal use
 ## Usage
 - Clone the repository to your local machine:
   ```bash
-  git clone https://github.com/chrisafk00/PersonalScripts.git
+  git clone https://codeberg.org/chrisafk/PersonalScripts.git
   ```
 - Check individual script files for specific instructions or dependencies.
 
