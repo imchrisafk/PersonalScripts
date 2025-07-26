@@ -1,0 +1,53 @@
+#!/usr/bin/env python3
+
+from PIL import Image, ImageSequence
+import sys
+
+
+def webp_to_apng(input_path, output_path):
+    try:
+        # Open the WebP image
+        with Image.open(input_path) as img:
+            # Check if the image is animated
+            if not hasattr(img, "is_animated") or not img.is_animated:
+                print("Error: Input WebP is not animated.")
+                return
+
+            # Extract frames
+            frames = []
+            durations = []
+            for frame in ImageSequence.Iterator(img):
+                # Convert frame to RGBA for APNG compatibility
+                frame_rgba = frame.convert("RGBA")
+                frames.append(frame_rgba)
+                # Get frame duration (in milliseconds)
+                duration = img.info.get(
+                    "duration", 100
+                )  # Default to 100ms if not specified
+                durations.append(duration)
+
+            # Save as APNG
+            if frames:
+                frames[0].save(
+                    output_path,
+                    format="PNG",
+                    append_images=frames[1:],
+                    save_all=True,
+                    duration=durations,
+                    loop=0,  # 0 means loop forever
+                )
+                print(f"Successfully converted {input_path} to {output_path}")
+            else:
+                print("Error: No frames found in WebP.")
+    except Exception as e:
+        print(f"Error during conversion: {str(e)}")
+
+
+if __name__ == "__main__":
+    if len(sys.argv) != 3:
+        print("Usage: python webp_to_apng.py input.webp output.png")
+        sys.exit(1)
+
+    input_file = sys.argv[1]
+    output_file = sys.argv[2]
+    webp_to_apng(input_file, output_file)
