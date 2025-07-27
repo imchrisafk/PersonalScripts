@@ -8,6 +8,7 @@ This repository contains a collection of scripts I have created for personal use
 
 ## Contents
 - Bash scripts (`.sh`) with comments or a brief description of their functionality within the code. 
+- Python scripts (`.py`) similarly with comments or a brief description of their functionality within the code.
 
 ## Usage
 - Clone the repository to your local machine:
