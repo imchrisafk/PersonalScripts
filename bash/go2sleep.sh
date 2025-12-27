@@ -19,6 +19,10 @@ sudo zypper clean
 highlight "Trimming old system snapshots..."
 sudo snapper cleanup number
 
+# Use Bleachbit for everything else
+highlight "Running BleachBit..."
+bleachbit -c --preset
+
 ## Shutdown ##
 highlight "Good night..."
 sudo shutdown now
