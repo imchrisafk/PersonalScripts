@@ -15,7 +15,7 @@ cd $HOME
 
 # Empty Trash
 highlight "Emptying trash..."
-gio trash --empty
+ktrash6 --empty
 
 # Clear Old System Logs
 highlight "Clearing old logs..."
