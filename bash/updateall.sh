@@ -10,9 +10,17 @@
 # - ClamAV virus definitions
 # - Tealdeer (tldr) command-line help cache
 
-# Requires: chrislib.sh for utility functions like 'highlight' and 'is_installed'
+# Check if executable is in system path or not.
+function is_installed() {
+    local executable="$1"
+    command -v "$executable" >/dev/null 2>&1 && return 0 || return 1
+}
 
-source chrislib.sh
+# Apply inverse video effect to the given text.
+function highlight() {
+    local text="$1"
+    printf "\033[7m%s\033[0m\n" "$text"
+}
 
 # Update system packages based on package manager
 highlight "Updating system packages..."

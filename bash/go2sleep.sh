@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 
-source chrislib.sh
+# Apply inverse video effect to the given text.
+function highlight() {
+    local text="$1"
+    printf "\033[7m%s\033[0m\n" "$text"
+}
 
 # Empty Trash
 highlight "Emptying trash..."
