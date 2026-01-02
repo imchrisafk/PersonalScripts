@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+# Check if executable is in system path or not.
+function is_installed() {
+    local executable="$1"
+    command -v "$executable" >/dev/null 2>&1 && return 0 || return 1
+}
+
 # Apply inverse video effect to the given text.
 function highlight() {
     local text="$1"
@@ -25,7 +31,11 @@ sudo snapper cleanup number
 
 # Use Bleachbit for everything else
 highlight "Running BleachBit..."
-bleachbit -c --preset
+if is_installed bleachbit; then
+    bleachbit -c --preset
+elif flatpak info org.bleachbit.BleachBit >/dev/null 2>&1; then
+    flatpak run org.bleachbit.BleachBit -c --preset
+fi
 
 ## Shutdown ##
 highlight "Good night..."
