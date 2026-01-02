@@ -13,21 +13,29 @@ function highlight() {
 }
 
 # Empty Trash
-highlight "Emptying trash..."
-ktrash6 --empty
+if is_installed ktrash6; then
+    highlight "Emptying trash..."
+    ktrash6 --empty
+fi
 
 # Clear Old System Logs
-highlight "Clearing old logs..."
-sudo journalctl --rotate
-sudo journalctl --vacuum-time=7d
+if is_installed journalctl; then
+    highlight "Clearing old logs..."
+    sudo journalctl --rotate
+    sudo journalctl --vacuum-time=7d
+fi
 
 # Delete Stale RPM Packages
-highlight "Deleting stale RPM packages..."
-sudo zypper clean
+if is_installed zypper; then
+    highlight "Deleting stale RPM packages..."
+    sudo zypper clean
+fi
 
 # Trim Old System Snapshots
-highlight "Trimming old system snapshots..."
-sudo snapper cleanup number
+if is_installed snapper; then
+    highlight "Trimming old system snapshots..."
+    sudo snapper cleanup number
+fi
 
 # Use Bleachbit for everything else
 highlight "Running BleachBit..."
