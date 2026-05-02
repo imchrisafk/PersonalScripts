@@ -1,29 +1,79 @@
-# Personal Scripts
+# PersonalScripts
 
-This repository contains a collection of scripts I have created for personal use. These scripts are designed to automate tasks, simplify workflows, or solve specific problems I encounter in my daily activities.
+A collection of bash and Python scripts for automating tasks and simplifying workflows on Linux.
 
-## Purpose
-- The scripts here are primarily for my own convenience and may include tools for automation, file management, or other utilities.
-- They are tailored to my specific needs but feel free to explore, adapt, or use them as inspiration for your own projects.
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](LICENSE)
 
 ## Contents
-- Bash scripts (`.sh`) with comments or a brief description of their functionality within the code. 
-- Python scripts (`.py`) similarly with comments or a brief description of their functionality within the code.
+
+- [Scripts](#scripts)
+- [Prerequisites](#prerequisites)
+- [Usage](#usage)
+- [Environment](#environment)
+- [License](#license)
+
+---
+
+## Scripts
+
+### Bash
+
+| Script | Description |
+|---|---|
+| `bash/go2sleep.sh` | Cleans up the system (trash, logs, RPM cache, snapshots, BleachBit) then shuts down |
+| `bash/rewrite_git_commit_emails.sh` | Rewrites author/committer name and email across all commits in a repo's history |
+| `bash/squarizevideo.sh` | Converts a vertical video to 1:1 aspect ratio by adding a blurred background via ffmpeg |
+| `bash/updateall.sh` | Updates system packages, Flatpak, pipx, Rust, ClamAV definitions, and tldr cache |
+
+### Python
+
+| Script | Description |
+|---|---|
+| `python/webp_to_apng.py` | Converts an animated WebP file to APNG, preserving frame durations |
+
+## Prerequisites
+
+- `bash` — for all `.sh` scripts
+- `python3` + `Pillow` — for `webp_to_apng.py` (`pip install Pillow`)
+- `ffmpeg` — for `squarizevideo.sh`
+- `git` — for `rewrite_git_commit_emails.sh`
+- Other per-script dependencies (e.g. `flatpak`, `rustup`, `snapper`) are optional (scripts check for them before running)
 
 ## Usage
-- Clone the repository to your local machine:
-  ```bash
-  git clone https://codeberg.org/chrisafk/PersonalScripts.git
-  ```
-- Check individual script files for specific instructions or dependencies.
+
+Clone the repository:
+
+```bash
+git clone https://codeberg.org/chrisafk/PersonalScripts.git
+cd PersonalScripts
+```
+
+Run a bash script:
+
+```bash
+bash bash/script-name.sh
+```
+
+Run the Python script:
+
+```bash
+pip install Pillow
+python3 python/webp_to_apng.py input.webp output.png
+```
+
+For `rewrite_git_commit_emails.sh`, run from the root of the target repository:
+
+```bash
+bash /path/to/rewrite_git_commit_emails.sh <new_name> <new_email> <old_email> [<old_email2> ...]
+```
+
+> [!WARNING]
+> `rewrite_git_commit_emails.sh` rewrites Git history. A backup is created automatically, but force-pushing afterwards will disrupt collaborators' clones.
 
 ## Environment
-- All scripts in this repository are developed and tested on **openSUSE Tumbleweed**. Compatibility with other systems is not guaranteed, but you are welcome to adapt them as needed.
 
-## Notes
-- These scripts are provided as-is, with no guarantee of compatibility or support for all systems.
-- Contributions or suggestions are welcome, but this is primarily a personal workspace.
-- If you modify or distribute these scripts, you must comply with the terms of the GPLv3 license, including sharing the source code of any derivatives.
+Developed and tested on **openSUSE Tumbleweed**. Most scripts should work on other systemd-based Linux distributions, though package manager commands (`zypper`, `snapper`, etc.) are openSUSE-specific.
 
 ## License
-This project is licensed under the **GNU General Public License v3 (GPLv3)**, a Free and Open Source Software (FLOSS) license. See the `LICENSE` file for details.
+
+Licensed under the [GNU General Public License v3.0](LICENSE).
