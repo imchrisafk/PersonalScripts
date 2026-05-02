@@ -1,0 +1,32 @@
+name: Mirror from Codeberg
+
+on:
+  schedule:
+    - cron: '0 * * * *'  # Runs every hour
+  workflow_dispatch:       # Allows manual triggering
+
+permissions:
+  contents: write
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.CODEBERG_SSH_KEY }}
+
+      - name: Add Codeberg to known hosts
+        run: ssh-keyscan codeberg.org >> ~/.ssh/known_hosts
+
+      - name: Clone from Codeberg (mirror)
+        run: |
+          git clone --mirror git@codeberg.org:chrisafk/PersonalScripts.git repo
+
+      - name: Push to GitHub
+        run: |
+          cd repo
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+          git push --mirror
