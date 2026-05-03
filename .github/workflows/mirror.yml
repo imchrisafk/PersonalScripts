@@ -2,7 +2,7 @@ name: Mirror from Codeberg
 
 on:
   schedule:
-    - cron: '0 * * * *'  # Runs every hour
+    - cron: '0 */4 * * *'  # Runs every four hours
   workflow_dispatch:       # Allows manual triggering
 
 permissions:
