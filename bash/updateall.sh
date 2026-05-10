@@ -3,7 +3,6 @@
 # Performs a comprehensive update of various software components on the system.
 # Updates:
 # - System packages (via pacman or zypper)
-# - PackageKit packages
 # - Flatpak applications and removes orphaned data
 # - pipx Python packages
 # - Rust toolchains
@@ -29,12 +28,6 @@ if is_installed pacman; then
 elif is_installed zypper; then
     sudo env ZYPP_CURL2=1 zypper ref           # Refresh openSUSE repositories
     sudo env ZYPP_PCK_PRELOAD=1 zypper dup -ly # Perform distribution upgrade
-fi
-
-# Update PackageKit packages if available
-if is_installed pkcon; then
-    highlight "Updating PackageKit packages..."
-    pkcon update
 fi
 
 # Update Flatpak applications and clean up unused data
