@@ -47,4 +47,4 @@ fi
 
 ## Shutdown ##
 highlight "Good night..."
-sudo shutdown now
+sudo systemctl poweroff
