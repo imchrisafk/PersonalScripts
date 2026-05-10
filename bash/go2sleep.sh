@@ -38,10 +38,11 @@ if is_installed snapper; then
 fi
 
 # Use Bleachbit for everything else
-highlight "Running BleachBit..."
 if is_installed bleachbit; then
+    highlight "Running BleachBit..."
     bleachbit -c --preset
 elif flatpak info org.bleachbit.BleachBit >/dev/null 2>&1; then
+    highlight "Running BleachBit..."
     flatpak run org.bleachbit.BleachBit -c --preset
 fi
 
