@@ -3,7 +3,7 @@
 # Check if executable is in system path or not.
 function is_installed() {
     local executable="$1"
-    command -v "$executable" >/dev/null 2>&1 && return 0 || return 1
+    command -v "$executable" >/dev/null 2>&1
 }
 
 # Apply inverse video effect to the given text.
