@@ -21,8 +21,7 @@ fi
 # Clear Old System Logs
 if is_installed journalctl; then
     highlight "Clearing old logs..."
-    sudo journalctl --rotate
-    sudo journalctl --vacuum-time=7d
+    sudo journalctl --rotate --vacuum-time=7d
 fi
 
 # Delete Stale RPM Packages
