@@ -48,6 +48,31 @@ else
     FPS_FILTER=""
 fi
 
+# Compute output video size, background scale and overlay offset
+if [ "$WIDTH" -gt "$HEIGHT" ]; then
+    ORIENTATION="horizontal"
+    S=$WIDTH
+    # Scale height → S (width will overshoot); crop S×S from center
+    BG_SCALE="-1:${S}"
+    OV_X=0
+    OV_Y=$(((S - HEIGHT) / 2))
+elif [ "$HEIGHT" -gt "$WIDTH" ]; then
+    ORIENTATION="vertical"
+    S=$HEIGHT
+    # Scale width → S (height will overshoot); crop S×S from center
+    BG_SCALE="${S}:-1"
+    OV_X=$(((S - WIDTH) / 2))
+    OV_Y=0
+else
+    ORIENTATION="square"
+    S=$WIDTH
+    BG_SCALE="${S}:-1"
+    OV_X=0
+    OV_Y=0
+fi
+
+echo "Orientation: ${ORIENTATION} → output: ${S}×${S}, overlay offset: (${OV_X}, ${OV_Y})"
+
 # Set output file path, ensuring it ends with '.mp4'
 if [ -n "$2" ]; then
     if [[ "$2" == *.mp4 ]]; then
