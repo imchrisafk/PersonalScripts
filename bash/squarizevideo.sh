@@ -23,6 +23,11 @@ WIDTH=$(ffprobe -v error -select_streams v:0 \
 HEIGHT=$(ffprobe -v error -select_streams v:0 \
     -show_entries stream=height -of csv=p=0 "$INPUT_FILE")
 
+if [ -z "$WIDTH" ] || [ -z "$HEIGHT" ]; then
+    echo "Error: Could not determine video dimensions"
+    exit 1
+fi
+
 # Set output file path, ensuring it ends with '.mp4'
 if [ -n "$2" ]; then
     if [[ "$2" == *.mp4 ]]; then
