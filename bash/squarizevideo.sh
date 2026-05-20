@@ -38,6 +38,16 @@ FPS_DECIMAL=$(awk -F'/' '{
     else printf "%s", $1
 }' <<<"$FPS_RAW")
 
+# Define interpolation filter when FPS < 60
+if awk "BEGIN { exit ($FPS_DECIMAL >= 60) }"; then
+    echo "Input FPS: ${FPS_DECIMAL} — interpolating to 60fps (this may take a while)"
+    # mci = motion-compensated interpolation; aobmc + bidir improve accuracy
+    FPS_FILTER="minterpolate=fps=60:mi_mode=mci:mc_mode=aobmc:me_mode=bidir:vsbmc=1,"
+else
+    echo "Input FPS: ${FPS_DECIMAL} — already ≥ 60fps, skipping interpolation"
+    FPS_FILTER=""
+fi
+
 # Set output file path, ensuring it ends with '.mp4'
 if [ -n "$2" ]; then
     if [[ "$2" == *.mp4 ]]; then
