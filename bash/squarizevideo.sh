@@ -30,6 +30,14 @@ fi
 
 echo "Input dimensions: ${WIDTH}x${HEIGHT}"
 
+# Get frame rate
+FPS_RAW=$(ffprobe -v error -select_streams v:0 \
+    -show_entries stream=r_frame_rate -of csv=p=0 "$INPUT_FILE")
+FPS_DECIMAL=$(awk -F'/' '{
+    if (NF == 2 && $2 != 0) printf "%.4f", $1 / $2
+    else printf "%s", $1
+}' <<<"$FPS_RAW")
+
 # Set output file path, ensuring it ends with '.mp4'
 if [ -n "$2" ]; then
     if [[ "$2" == *.mp4 ]]; then
