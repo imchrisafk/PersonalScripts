@@ -22,7 +22,7 @@ A collection of bash and Python scripts for automating tasks and simplifying wor
 |---|---|
 | `bash/go2sleep.sh` | Cleans up the system (trash, logs, RPM cache, snapshots, BleachBit) then shuts down |
 | `bash/rewrite_git_commit_emails.sh` | Rewrites author/committer name and email across all commits in a repo's history |
-| `bash/squarizevideo.sh` | Converts a vertical video to 1:1 aspect ratio by adding a blurred background via ffmpeg |
+| `bash/squarizevideo.sh` | Converts a video to 1:1 aspect ratio by adding a blurred background via ffmpeg |
 | `bash/updateall.sh` | Updates system packages, Flatpak, pipx, Rust, ClamAV definitions, and tldr cache |
 
 ### Python
