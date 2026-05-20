@@ -14,7 +14,14 @@ if [ -z "$1" ]; then
     echo "Error: Please provide a file path as first argument"
     exit 1
 fi
+
 INPUT_FILE="$1"
+
+# Get video dimensions
+WIDTH=$(ffprobe -v error -select_streams v:0 \
+    -show_entries stream=width -of csv=p=0 "$INPUT_FILE")
+HEIGHT=$(ffprobe -v error -select_streams v:0 \
+    -show_entries stream=height -of csv=p=0 "$INPUT_FILE")
 
 # Set output file path, ensuring it ends with '.mp4'
 if [ -n "$2" ]; then
