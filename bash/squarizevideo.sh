@@ -94,5 +94,13 @@ boxblur=luma_radius=20:luma_power=2[bg];\
 [bg][fg]overlay=${OV_X}:${OV_Y}\
 "
 
-# Process video: split stream, create blurred background by zooming and cropping input to match height as width, overlay original video, encode to H.264/AAC
-ffmpeg -i "$INPUT_FILE" -filter_complex "[0:v]split=2[blur][vid];[blur]tblend,fps=60,boxblur=8,scale=in_h:-1,crop=in_w:in_w:0:in_h/3[bg];[vid]tblend,fps=60[ov];[bg][ov]overlay=(W-w)/2,fps=60" -c:v libx264 -c:a aac -b:v 10M -b:a 320k "$OUTPUT_FILE"
+# Encode the video
+ffmpeg -i "$INPUT_FILE" \
+    -filter_complex "$FILTER" \
+    -c:v libx264 \
+    -crf 18 \
+    -preset slow \
+    -pix_fmt yuv420p \
+    -c:a aac \
+    -b:a 320k \
+    "$OUTPUT_FILE"
