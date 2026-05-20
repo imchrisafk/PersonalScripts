@@ -73,6 +73,15 @@ fi
 
 echo "Orientation: ${ORIENTATION} → output: ${S}×${S}, overlay offset: (${OV_X}, ${OV_Y})"
 
+# Build filth graph
+FILTER="\
+[0:v]${FPS_FILTER}split=2[bg_in][fg];\
+[bg_in]scale=${BG_SCALE},\
+crop=${S}:${S}:(iw-${S})/2:(ih-${S})/2,\
+boxblur=luma_radius=20:luma_power=2[bg];\
+[bg][fg]overlay=${OV_X}:${OV_Y}\
+"
+
 # Set output file path, ensuring it ends with '.mp4'
 if [ -n "$2" ]; then
     if [[ "$2" == *.mp4 ]]; then
