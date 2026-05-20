@@ -28,6 +28,8 @@ if [ -z "$WIDTH" ] || [ -z "$HEIGHT" ]; then
     exit 1
 fi
 
+echo "Input dimensions: ${WIDTH}x${HEIGHT}"
+
 # Set output file path, ensuring it ends with '.mp4'
 if [ -n "$2" ]; then
     if [[ "$2" == *.mp4 ]]; then
